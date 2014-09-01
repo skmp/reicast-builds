@@ -1,0 +1,113 @@
+<html>
+	<head>
+
+		<title>reicast ci builds</title>
+		<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+<style>
+	body.has-js .no-js-content {
+		display: none;
+	}
+	body.no-js .js-content {
+		display: none;
+	}
+</style>
+<style>
+h1,div { 
+	margin-left: 2em;
+}
+#builds {
+	font-family:"Courier New", Courier, monospace;
+}
+</style>
+	</head>
+	<body class="no-js">
+	<script>
+		$('body').removeClass("no-js").addClass("has-js");
+	</script>
+
+	<div class="no-js-content">
+		<h1>This page requires javascript to fetch the data from amazon S3.<h1>
+	</div>
+	<div class="js-content">
+		<h1>reicast continuous integration builds</h1>
+		<div id="builds">
+			<h2>Fetching list ...</h2>
+		</div>		
+	</div>
+	<script>
+		$.get('https://reicast-builds.s3.amazonaws.com/')
+		.done(function(response) {
+
+var filex = response.getElementsByTagName('Contents');
+
+
+var files=[];
+for(i=0; i<filex.length; i++){ 
+	var size = filex[i].getElementsByTagName('Size')[0].firstChild.data;
+	var name = filex[i].getElementsByTagName('Key')[0].firstChild.data;
+	var lastmod = filex[i].getElementsByTagName('LastModified')[0].firstChild.data;
+        var link = "http://reicast-builds.s3.amazonaws.com/"+name;
+	var commit = name.substring(name.lastIndexOf("-")+1, name.lastIndexOf("."));
+	files.push({
+		filename: name,
+		name: _.last(name.split('/')),
+		branch: name.indexOf("builds/heads") == 0  && name.split('/')[2].split('-').slice(0,-1).join('-') || "unknown branch",
+		commit: commit,
+		size: size,
+		built_at: new Date(lastmod),
+		apk_link: link,
+		commit_link: "https://github.com/reicast/reicast-emulator/commit/" + commit
+	});
+}
+
+var $builds=$('#builds').empty();
+
+var branches={};
+_.each(files, function(v) {
+	var b =  branches[v.branch] = branches[v.branch] || [];
+	b.push(v);
+});
+
+var ordered = _.union(["testing", "master"], _.keys(branches));
+
+_.each(ordered, function(branch) {
+	var builds=branches[branch];
+
+	if (!builds) return;
+
+	var $par=$('<div>').append($('<h1>').text(branch)).appendTo($builds);
+	_.each( _.sortBy(builds, function(v) { return v.built_at; }).reverse(), function(build) {
+		var el = $('<div>').appendTo($par);
+		el.append(build.built_at.toISOString().replace(/T|(.000Z)/g," "));
+		el.append(" ");
+		$("<a>").attr("href", build.commit_link).text("commit #" + build.commit).appendTo(el);
+		el.append(" ");
+		$("<a>").attr("href", build.apk_link).text("apk").appendTo(el);
+	});
+});
+
+
+
+/*
+for(i=0; i<fileList.length; i++){ //length is the same as count($array)
+        fileData = fileList[i];
+        name = fileData[0];
+        size = fileData[1];
+        lastmod = fileData[2];
+        link = fileData[3];
+        res = res + size + " B ";
+        res = res + " " + lastmod + " ";
+        var hash = name.substring(name.lastIndexOf("-")+1, name.lastIndexOf("."));
+	res = res + " <a href=\"https://github.com/reicast/reicast-emulator/commit/" + hash + "\">"+ hash + "</a> ";
+	res = res + " "+ link+ " ";
+        res = res + "<BR>";
+}
+*/
+
+		}).fail(function() { 
+			alert("Something went wrong. Please reload.");
+		})
+	</script>
+	</body>
+</html>
