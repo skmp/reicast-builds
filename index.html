@@ -36,6 +36,9 @@
 			</div>		
 		</div>
 		<script>
+
+			var unknownName = "[others]";
+
 			$.get('https://reicast-builds.s3.amazonaws.com/')
 			.done(function(response) {
 	
@@ -52,7 +55,7 @@
 				files.push({
 					filename: name,
 					name: _.last(name.split('/')),
-					branch: name.indexOf("builds/heads") == 0  && name.split('/')[2].split('-').slice(0,-1).join('-') || "unknown branch",
+					branch: name.indexOf("builds/heads") == 0 && name.replace(/^builds\/heads\//,"").replace(/\/[^\/]*$/,"").replace(/\-[^\-]*$/,"") || unknownName,
 					commit: commit,
 					size: size,
 					built_at: new Date(lastmod),
@@ -69,8 +72,13 @@
 				b.push(v);
 			});
 			
-			var ordered = _.union(["testing", "master"], _.keys(branches));
+			var presort = _.sortBy(_.keys(branches), function(v) { return _.max(branches[v], function(v) { return v.built_at })}).reverse();
+
+			var ordered = _.union(["testing", "master"], presort);
 			
+			ordered = _.without(ordered,unknownName);
+			ordered.push(unknownName);
+
 			_.each(ordered, function(branch) {
 				var builds=branches[branch];
 			
