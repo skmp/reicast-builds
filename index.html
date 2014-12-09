@@ -109,7 +109,7 @@
   ga('create', 'UA-46560202-4', 'auto');
   ga('require', 'displayfeatures');
   ga('send', 'pageview');
-  ga('send', 'event', 'page', 'loaded', true);
+  ga('send', 'event', 'page', 'loaded', null, null, true);
 
   $('body').on('click', 'a[data-action]', function() {
   	ga('send', 'event', 'build', $(this).attr('data-action'), $(this).attr('data-build'));
