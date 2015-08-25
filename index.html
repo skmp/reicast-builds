@@ -24,7 +24,7 @@
 
 			.wrap {
 				margin:0 auto;
-				width:900px;
+				width:630px;
 			}
 
 			#header, #footer {
@@ -43,7 +43,6 @@
 				background: -ms-linear-gradient(top,  #131313 0%,#333333 94%,#000000 96%,#ffffff 100%); /* IE10+ */
 				background: linear-gradient(to bottom,  #131313 0%,#333333 94%,#000000 96%,#ffffff 100%); /* W3C */
 				filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#131313', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
-				font-size: x-large;
 			}
 
 			#header .logo {
@@ -51,10 +50,13 @@
 				width:60px;
 			}
 
-			#header p {
-				width:840px;
+			#header h1 {
+				width:570px;
 				margin:0;
+				padding:0;
 				line-height: 48px;
+				font-size: x-large;
+				font-weight: normal;
 				text-transform: lowercase;
 			}
 
@@ -151,12 +153,11 @@
 				<div class="logo">
 						<a href="#"><img src="https://raw.githubusercontent.com/reicast/reicast-emulator/master/shell/android/res/drawable-mdpi/ic_launcher.png	"></a>
 				</div>
-				<p>Reicast Builds</p>
+				<h1>Reicast CI Builds</h1>
 			</div>
 		</div>
 		<div class="wrap">
 			<div id="content">
-				<h1>Reicast continuous integration builds</h1>
 				<noscript>This page requires javascript to fetch the data from amazon S3.</noscript>
 				<div id="builds" class="hide-element">
 					<p>Fetching list ...</p>
