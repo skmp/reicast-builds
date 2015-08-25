@@ -4,11 +4,7 @@
 		<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
 		<style>
-			body.has-js .no-js-content {
-				display: none;
-			}
-
-			body.no-js .js-content {
+			.hide-element {
 				display: none;
 			}
 
@@ -69,7 +65,7 @@
 		</style>
 		<script type="text/javascript">
 			$( document ).ready(function() {
-				$('body').removeClass("no-js").addClass("has-js");
+				$('#builds').removeClass("hide-element");
 
 				var unknownName = "[others]";
 
@@ -160,14 +156,10 @@
 		</div>
 		<div class="wrap">
 			<div id="content">
-				<div class="no-js-content">
-					<h1>This page requires javascript to fetch the data from amazon S3.</h1>
-				</div>
-				<div class="js-content">
-					<h1>Reicast continuous integration builds</h1>
-					<div id="builds">
-						<h2>Fetching list ...</h2>
-					</div>		
+				<h1>Reicast continuous integration builds</h1>
+				<noscript>This page requires javascript to fetch the data from amazon S3.</noscript>
+				<div id="builds" class="hide-element">
+					<p>Fetching list ...</p>
 				</div>
 			</div>
 		</div>
