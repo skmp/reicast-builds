@@ -99,10 +99,10 @@ $(document).ready(function() {
 				var commit = branch[commit_id];
 				console.log(commit);
 				var s_date = commit.last_modified.toISOString();
-				var s_commit = '<a href="https://github.com/reicast/reicast-emulator/commit/' + commit_id + '">'+ commit_id +'</a>';
-				s_android = (commit.platforms.android == null) ? '' : '<a href="http://reicast-builds.s3.amazonaws.com/' + commit.platforms.android.path + '">APK</a> (' + format_size(commit.platforms.android.filesize) + ')';
-				s_win86 = (commit.platforms.win_x86 == null) ? '' : '<a href="http://reicast-builds-windows.s3.amazonaws.com/' + commit.platforms.win_x86.path + '">ZIP</a> (' + format_size(commit.platforms.win_x86.filesize) + ')';
-				s_win64 = (commit.platforms.win_x64 == null) ? '' : '<a href="http://reicast-builds-windows.s3.amazonaws.com/' + commit.platforms.win_x64.path + '">ZIP</a> (' + format_size(commit.platforms.win_x64.filesize) + ')';
+				var s_commit = '<a href="https://github.com/reicast/reicast-emulator/commit/' + commit_id + '" data-action="info" data-build="' + commit_id + '">'+ commit_id +'</a>';
+				s_android = (commit.platforms.android == null) ? '' : '<a data-action="download" data-build="' + commit_id + '" href="http://reicast-builds.s3.amazonaws.com/' + commit.platforms.android.path + '">APK</a> (' + format_size(commit.platforms.android.filesize) + ')';
+				s_win86 = (commit.platforms.win_x86   == null) ? '' : '<a data-action="download" data-build="' + commit_id + '" href="http://reicast-builds-windows.s3.amazonaws.com/' + commit.platforms.win_x86.path + '">ZIP</a> (' + format_size(commit.platforms.win_x86.filesize) + ')';
+				s_win64 = (commit.platforms.win_x64   == null) ? '' : '<a data-action="download" data-build="' + commit_id + '" href="http://reicast-builds-windows.s3.amazonaws.com/' + commit.platforms.win_x64.path + '">ZIP</a> (' + format_size(commit.platforms.win_x64.filesize) + ')';
 				el_table.append('<tr'+s_trclass+'><td class="commit">' + s_commit  + '</td><td class="date">' + commit.last_modified.toISOString() + '</td><td>' + s_android + '</td><td>' + s_win86 + '</td><td>' + s_win64 + '</td></tr>');
 			}
 		}
