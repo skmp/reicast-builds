@@ -80,7 +80,6 @@ $(document).ready(function() {
 		{
 			var branch_name = branches[i];
 			var branch = builds[branch_name];
-			console.log(branch_name);
 			el_table.append('<tr><th colspan="3" class="branch" id="' + branch_name +  '">' + branch_name + '</th></tr>');
 			el_table.append('<tr><th>Commit</th><th>Date</th><th><img src="http://i.imgur.com/nK9exQe.jpg" /> Android</th><th><img src="http://i.imgur.com/hAuMmjF.png" /> Win_x86</th><th><img src="http://i.imgur.com/hAuMmjF.png" /> Win_x64</th></tr>');
 
@@ -97,7 +96,6 @@ $(document).ready(function() {
 				var s_trclass = ((j % 2) == 0) ? ' class="even"' : '';
 				var commit_id = commit_ids[j];
 				var commit = branch[commit_id];
-				console.log(commit);
 				var s_date = commit.last_modified.toISOString();
 				var s_commit = '<a href="https://github.com/reicast/reicast-emulator/commit/' + commit_id + '" data-action="info" data-build="' + commit_id + '">'+ commit_id +'</a>';
 				s_android = (commit.platforms.android == null) ? '' : '<a data-action="download" data-build="' + commit_id + '" href="http://reicast-builds.s3.amazonaws.com/' + commit.platforms.android.path + '">APK</a> (' + format_size(commit.platforms.android.filesize) + ')';
