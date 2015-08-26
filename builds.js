@@ -14,10 +14,10 @@ function keys(obj)
 
 function format_size(bytes) {
 	var i = 0;
-	var units = ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-	while(bytes > 1000)
+	var units = ['B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
+	while(bytes > 1024 && i < 8)
 	{
-			bytes = bytes/1000;
+			bytes = bytes/1024;
 			i++;
 	} 
 	return Math.max(bytes, 0.1).toFixed(1) + ' ' + units[i];
