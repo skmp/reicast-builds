@@ -39,13 +39,15 @@ html, body, div {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#131313', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
 }
 
-#header .logo {
-	float:left;
-	width:60px;
+#header .logo, #header h1 {
+	display: inline-block;
+}
+
+#header .logo img {
+	vertical-align: middle;
 }
 
 #header h1 {
-	width:570px;
 	margin:0;
 	padding:0;
 	line-height: 48px;
