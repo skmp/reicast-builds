@@ -88,3 +88,22 @@ html, body, div {
 {
 	font-size: large;
 }
+
+#builds th.branch a
+{
+	float: left;
+	line-height: 1;
+	margin-left: -20px;
+	padding-right: 4px;
+	margin-top: 4px;
+}
+
+#builds th.branch a svg
+{
+  visibility: hidden;
+}
+
+#builds th.branch:hover a svg, #builds th.branch a:hover svg
+{
+	visibility: visible;
+}
