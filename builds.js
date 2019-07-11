@@ -33,6 +33,9 @@ $(document).ready(function() {
 
 	function add_build(branch, commit, platform, last_modified, build)
 	{
+		if (branch == "develop") branch = "alpha"
+		if (branch == "master") branch = "beta";
+		
 		if(!builds.hasOwnProperty(branch))
 		{
 			builds[branch] = new Array();
