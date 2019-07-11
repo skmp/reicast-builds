@@ -27,7 +27,7 @@ $(document).ready(function() {
 	$('#builds').removeClass("hide-element");
 
 	var unknown_branch = "[others]"
-	var master_branch = "master"
+	var official_branches = [ "alpha", "beta", "stable" ]
 	var builds = new Array();
 	var branches = [];
 
@@ -63,11 +63,15 @@ $(document).ready(function() {
 	{
 		// Create a sorted list of branches
 		branches.sort();
-		var pos = branches.indexOf(master_branch)
-		if (pos > 0)
+		for (let i=0;i<official_branches.length;i++)
 		{
-			branches.splice(pos, 1);
-			branches.unshift(master_branch);
+			let branch = official_branches[i];
+			var pos = branches.indexOf(branch)
+			if (pos > 0)
+			{
+				branches.splice(pos, 1);
+				branches.unshift(branch);
+			}
 		}
 		pos = branches.indexOf(unknown_branch)
 		if (pos >= 0)
